@@ -19,12 +19,15 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import ua.com.andromeda.woof.data.Dog
 import ua.com.andromeda.woof.data.dogs
+import ua.com.andromeda.woof.ui.theme.Shapes
 import ua.com.andromeda.woof.ui.theme.WoofTheme
 
 class MainActivity : ComponentActivity() {
@@ -72,9 +75,13 @@ fun DogInformation(dog: Dog, modifier: Modifier = Modifier) {
     Column {
         Text(
             text = stringResource(dog.name),
-            modifier = Modifier.padding(top = dimensionResource(R.dimen.padding_small))
+            modifier = Modifier.padding(top = dimensionResource(R.dimen.padding_small)),
+            style = MaterialTheme.typography.displayMedium
         )
-        Text(text = stringResource(R.string.years_old, dog.age))
+        Text(
+            text = stringResource(R.string.years_old, dog.age),
+            style = MaterialTheme.typography.bodyLarge
+        )
     }
 }
 
@@ -83,9 +90,11 @@ fun DogIcon(@DrawableRes dogIcon: Int, modifier: Modifier = Modifier) {
     Image(
         painter = painterResource(dogIcon),
         contentDescription = null,
+        contentScale = ContentScale.Crop,
         modifier = modifier
             .size(dimensionResource(R.dimen.image_size))
             .padding(dimensionResource(R.dimen.padding_small))
+            .clip(shape = Shapes.small)
     )
 }
 
